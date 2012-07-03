@@ -6,30 +6,22 @@ file = 'wordlist.txt'
 fd = open(file, 'r')
 
 if __name__=='__main__':
-    #wordlist = fd.read()
     palavra = sys.argv[1]
     comprimento = len(palavra)
-    print palavra
-    print comprimento
-    #apenas retirar da wordlist palavras com o mesmo numero de letras
     lines = fd.readlines()
     for line in lines:
         line = line.replace('\n', '')
         compri_linha = len(line)
-        hyphen = line.count('-')
-        if hyphen != 0:
-            compri_linha = compri_linha - hyphen
+        #apenas retirar da wordlist palavras com o mesmo numero de letras
         if compri_linha == comprimento:
-            #print 'entrou1'
-            for i in range(comprimento):
-                #print 'entrou2'
-                if palavra[i] == '_':
-                    #print 'entrou3'
+            for posicao in range(1,comprimento+1):
+                i = posicao-1
+                if palavra[i] == '_': #se letra for 'nao descoberta', passa.
+                    if posicao == comprimento: #Se for a ultima letra, libera.
+                        print line
                     pass
-                if line[i] == palavra[i]:
-                    #print 'entrou4'
-                    print line
-            
-            #for i in palavra:
-            #    if i != '_':
-            #print line
+                elif line[i] == palavra[i]: #se a letra da palavra da wordlist for igual a informada, continua.
+                    if posicao == comprimento: #Se for a ultima letra, libera.
+                        print line
+                else:
+                    break
